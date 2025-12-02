@@ -1,6 +1,6 @@
 services:
 
-  mp-pgsql:
+  be-pgsql:
     networks:
       net: {}
 
