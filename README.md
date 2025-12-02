@@ -4,7 +4,7 @@
 
 # INFRASTRUCTURE PLATFORM
 
-# NGINX 1.28, GO 1.25, POSTGRES 17.5
+# NGINX 1.28, GO 1.25, POSTGRES 16.4
 
 This Infrastructure Platform repository is designed for back-end projects and provides two separate platforms: one for the API and another for the database.
 
@@ -73,20 +73,20 @@ COMPOSE_PROJECT_GROUP="myproj"
 
 ## <a id="db-settings"></a>Database service container settings
 
-Inside `./platform/pgsql-17.5` there are a dedicated GNU Make file and the main Docker directory with the required scripts to build the required platform configuration adapted from [PostgreSQL GitHub repository source](https://github.com/docker-library/postgres/blob/master/17/alpine3.22/docker-entrypoint.sh)
+Inside `./platform/pgsql-16.4` there are a dedicated GNU Make file and the main Docker directory with the required scripts to build the required platform configuration adapted from [PostgreSQL GitHub repository source](https://github.com/docker-library/postgres/blob/master/17/alpine3.22/docker-entrypoint.sh)
 
 Content:
 - Linux Alpine version 3.22
-- Postgres 17.5
+- Postgres 16.4
 <br>
 
 <font color="orange"><b>IMPORTANT:</b></font> There is a `.env.example` file with the variables required to build the container by `docker-compose.yml` file to create the container if no GNU Make is available on developer's machine. Otherwise, it is not required to create its `.env` manually file for building the container.
 
-Database environment: `./platform/pgsql-17.5/docker/.env`
+Database environment: `./platform/pgsql-16.4/docker/.env`
 ```bash
 COMPOSE_PROJECT_LEAD="myproj"
 COMPOSE_PROJECT_CNET="mp-dev"
-COMPOSE_PROJECT_IMGK="alpine3.22-pgsql-17.5"
+COMPOSE_PROJECT_IMGK="alpine3.22-pgsql-16.4"
 COMPOSE_PROJECT_NAME="mp-pgsql-dev"
 COMPOSE_PROJECT_HOST="127.0.0.1"
 COMPOSE_PROJECT_PORT=4000
@@ -98,7 +98,7 @@ POSTGRES_PASSWORD="J4YPuJaieJ35gNAOSQQor87s82q2eUS1"
 ```
 
 <div style="with:100%;height:auto;text-align:center;">
-    <img src="./resources/docs/images/make-postgres-set.jpg">
+    <img src="./resources/docs/images/make-db-set.jpg">
 </div>
 <br>
 
@@ -129,8 +129,8 @@ APIREST_GIT_HOST=github.org
 APIREST_GIT_BRANCH=develop
 APIREST_DOMAIN=
 
-DATABASE_PLTF=pgsql-17.5
-DATABASE_IMGK=alpine3.22-pgsql-17.5
+DATABASE_PLTF=pgsql-16.4
+DATABASE_IMGK=alpine3.22-pgsql-16.4
 DATABASE_PORT=4000
 DATABASE_CAAS=mp-pgsql-dev
 DATABASE_CAAS_MEM=128M
@@ -156,10 +156,10 @@ $ make apirest-set
 
 Set up the database container
 ```bash
-$ make postgres-set
+$ make db-set
 ```
 <div style="with:100%;height:auto;text-align:center;">
-    <img src="./resources/docs/images/make-postgres-set.jpg">
+    <img src="./resources/docs/images/make-db-set.jpg">
 </div>
 <br>
 
@@ -205,7 +205,7 @@ But with no database connection established or failed because of wrong configura
 
 Create and start up the database container
 ```bash
-$ make postgres-create
+$ make db-create
 ```
 <div style="with:100%;height:auto;text-align:center;">
     <img src="./resources/docs/images/make-postgres-create.jpg">
@@ -251,8 +251,8 @@ This streamlines the workflow for managing containers with mnemonic recipe names
 
 Clone the platforms repository
 ```bash
-$ git clone https://github.com/pabloripoll/docker-platform-nginx-go-1.25-pgsql-17.5
-$ cd docker-platform-nginx-go-1.25-pgsql-17.5
+$ git clone https://github.com/pabloripoll/docker-platform-nginx-go-1.25-pgsql-16.4
+$ cd docker-platform-nginx-go-1.25-pgsql-16.4
 ```
 
 Repository directories structure overview:
@@ -273,7 +273,7 @@ Repository directories structure overview:
 │   │   │   └── Dockerfile
 │   │   │
 │   │   └── Makefile
-│   └── postgres-17.5
+│   └── postgres-16.4
 │       ├── docker
 │       └── Makefile
 ├── .env
