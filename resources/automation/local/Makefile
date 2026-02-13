@@ -20,18 +20,13 @@ endif
 
 include .env
 
-APIREST_BRANCH:=develop
-APIREST_PROJECT:=$(PROJECT_NAME) - DEVELOPMENT
-APIREST_CONTAINER:=$(addsuffix -$(APIREST_CAAS), $(PROJECT_LEAD))
-DATABASE_CONTAINER:=$(addsuffix -$(DATABASE_CAAS), $(PROJECT_LEAD))
 ROOT_DIR=$(patsubst %/,%,$(dir $(realpath $(firstword $(MAKEFILE_LIST)))))
 DIR_BASENAME=$(shell basename $(ROOT_DIR))
-
-.PHONY: help
 
 # -------------------------------------------------------------------------------------------------
 #  Help
 # -------------------------------------------------------------------------------------------------
+.PHONY: help
 
 help: ## shows this Makefile help message
 	echo "Usage: $$ make "${C_GRN}"[target]"${C_END}
@@ -46,16 +41,7 @@ help: ## shows this Makefile help message
 local_ip ?= $(word 1,$(shell hostname -I))
 local-info: ## shows local machine ip and container ports set
 	echo "Container Services:"
-	echo ${C_BLU}"LOCAL IP / HOSTNAME:"${C_END} ${C_YEL}"$(local_ip)"${C_END}
-	echo ${C_BLU}"CORE DB SQL:"${C_END}" $(local_ip):"${C_YEL}"$(DATABASE_PORT)"${C_END}
-	echo ${C_BLU}"SESSION DB:"${C_END}" $(local_ip):"${C_YEL}"$(REDIS_PORT)"${C_END}
-	echo ${C_BLU}"EVENT DB:"${C_END}" $(local_ip):"${C_YEL}"$(MONGODB_PORT)"${C_END}
-	echo ${C_BLU}"EVENT DB CLIENT:"${C_END}" $(local_ip):"${C_YEL}"$(MONGODB_APP_PORT)"${C_END}
-	echo ${C_BLU}"REST API:"${C_END}" $(local_ip):"${C_YEL}"$(APIREST_PORT)"${C_END}
-	echo ${C_BLU}"MAILER:"${C_END}" $(local_ip):"${C_YEL}"$(MAILER_PORT)"${C_END}
-	echo ${C_BLU}"MAILER CLIENT:"${C_END}" $(local_ip):"${C_YEL}"$(MAILER_APP_PORT)"${C_END}
-	echo ${C_BLU}"BROKER:"${C_END}" $(local_ip):"${C_YEL}"$(BROKER_PORT)"${C_END}
-	echo ${C_BLU}"BROKER CLIENT:"${C_END}" $(local_ip):"${C_YEL}"$(BROKER_APP_PORT)"${C_END}
+	echo ${C_BLU}"Local IP / Hostname:"${C_END} ${C_YEL}"$(local_ip)"${C_END}
 
 user ?= ${USER}
 group ?= root
@@ -112,7 +98,7 @@ apirest-restart: ## restarts the running apirest container
 
 apirest-destroy: ## destroys completly the apirest container
 	echo ${C_RED}"Attention!"${C_END};
-	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(APIREST_PROJECT)"${C_END}" container and delete its image resource."${C_END};
+	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(APIREST_PLTF)"${C_END}" container and delete its image resource."${C_END};
 	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
         echo ${C_GRN}"K.O.! container has been stopped but not destroyed."${C_END}; \
     else \
@@ -161,7 +147,7 @@ mailer-restart: ## restarts the running mailer container
 
 mailer-destroy: ## destroys completly the mailer container
 	echo ${C_RED}"Attention!"${C_END};
-	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(MAILER_PROJECT)"${C_END}" container and delete its image resource."${C_END};
+	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(MAILER_PLTF)"${C_END}" container and delete its image resource."${C_END};
 	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
         echo ${C_GRN}"K.O.! container has been stopped but not destroyed."${C_END}; \
     else \
@@ -210,7 +196,7 @@ db-restart: ## restarts the running database container
 
 db-destroy: ## destroys completly the database container with its data
 	echo ${C_RED}"Attention!"${C_END};
-	echo ${C_YEL}"You're about to remove the database container and delete its image resource and persistance data."${C_END};
+	echo ${C_YEL}"You're about to remove the "${C_BLU}"$(DATABASE_PLTF)"${C_END}" container and delete its image resource and persistance data."${C_END};
 	@echo -n ${C_RED}"Are you sure to proceed? "${C_END}"[y/n]: " && read response && if [ $${response:-'n'} != 'y' ]; then \
         echo ${C_GRN}"K.O.! container has been stopped but not destroyed."${C_END}; \
     else \
