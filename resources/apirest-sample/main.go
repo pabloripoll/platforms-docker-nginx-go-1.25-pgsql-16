@@ -18,17 +18,17 @@ func main() {
 
         connStr := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable", host, port, name, user, pass)
 
-        //dbstatus := true
-        dbstatusMessage := `<span>POSTGRE database successfully connected</span>`
+        //dbstatus := true // add this variable if failure will handle by condition inside html
+        dbstatusMessage := `<span>Database successfully connected</span>`
 
         db, err := sql.Open("postgres", connStr)
         if err != nil {
             //dbstatus = false
-            dbstatusMessage = fmt.Sprintf(`<b style="color:red">POSTGRE connection error:</b> %s`, err.Error())
+            dbstatusMessage = fmt.Sprintf(`<b style="color:red">Connection Failed:</b> %s`, err.Error())
         } else {
             if err = db.Ping(); err != nil {
                 //dbstatus = false
-                dbstatusMessage = fmt.Sprintf(`<b style="color:red">POSTGRE connection error:</b> %s`, err.Error())
+                dbstatusMessage = fmt.Sprintf(`<b style="color:red">Connection Error:</b> %s`, err.Error())
             }
         }
         db.Close()
