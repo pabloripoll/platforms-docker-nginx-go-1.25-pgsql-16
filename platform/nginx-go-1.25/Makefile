@@ -126,7 +126,7 @@ up: ## attaches to containers for a service and also starts any linked services
 start: ## starts the container and put on running
 	cd docker && $(DOCKER_COMPOSE) start
 
-stop: ## stops the running container but data won't be destroyed
+stop: ## stops the running container but data will not be destroyed
 	cd docker && $(DOCKER_COMPOSE) stop
 
 restart: ## restarts the running container

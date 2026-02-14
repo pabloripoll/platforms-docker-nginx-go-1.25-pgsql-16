@@ -29,6 +29,7 @@ RUN apk add --no-cache \
     zip \
     nano \
     git \
+    make \
     supervisor
 
 # Install GO
@@ -55,10 +56,10 @@ RUN chown -R ${USER}:${GROUP} /var/www /run /var/lib/nginx /var/log/nginx
 
 USER ${USER}
 
-EXPOSE 80 443 8080
+# NGINX: 80 - GO: 8080
+EXPOSE 80 8080
 
-# Build the Go app (replace 'main.go' and 'apirest' as needed)
-#RUN go build -o apirest main.go // <- not working
+# Build the GO Application (replace 'main.go' as your requirements)
 RUN go version
 RUN go install github.com/air-verse/air@latest
 RUN sudo cp /home/${USER}/go/bin/air /usr/local/bin/air

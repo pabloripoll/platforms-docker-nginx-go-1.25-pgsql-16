@@ -44,6 +44,11 @@ Platform engineering is the discipline of creating and managing an internal deve
 
 ## <a id="platform-usage"></a>Use this Platform Repository for your own REST API repositories
 
+Platforms Documentation:
+
+- [NGINX + GO](./platform/nginx-go-1.25/README.md)
+<br><br>
+
 Repository directories structure overview:
 ```bash
 .
